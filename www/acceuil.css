@@ -1,0 +1,308 @@
+/* Réinitialiser les marges et paddings par défaut */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    filter: blur(3px);
+}
+
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    color: #fff;
+    z-index: 1;
+}
+.title {
+    font-size: 3rem;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: transform 1s ease-out, opacity 1s ease-out;
+}
+
+.scroll-section {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+    background-color: #f0f0f0;
+    font-size: 2rem;
+    color: #333;
+}
+
+.title.scrolled {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.logo-cosmodrome-acceuil {
+    width: 55%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.contenu {
+    background-image: url(image/fond-espace.png);
+    width: auto;
+    height: auto;
+    color: white;
+    margin-top: -20px;
+}
+/* Conteneur des éléments du menu */
+.menu-item {
+    position: relative;
+    display: inline-block;
+    margin: 0 15px;
+    font-family: inherit;
+}
+
+/* LIENS principaux du menu */
+.page-link {
+    display: block;
+    padding: 10px 18px;
+    color: #ffffff;
+    background-color: rgba(40, 40, 60, 0.85);
+    text-decoration: none;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 8px rgba(100, 255, 255, 0.15);
+    font-weight: bold;
+}
+
+.page-link:hover {
+    background-color: rgba(100, 100, 160, 0.9);
+    box-shadow: 0 0 12px #6dd5fa;
+    color: #ffffff;
+}
+
+/* DROPDOWN (sous-menu) */
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 180px;
+    background-color: rgba(25, 25, 40, 0.98);
+    border-radius: 10px;
+    padding: 8px 0;
+    z-index: 20;
+    box-shadow: 0 0 15px rgba(80, 150, 255, 0.2);
+}
+
+.menu-item:hover > .dropdown {
+    display: block;
+}
+
+/* Liens du sous-menu */
+.dropdown .page-link {
+    background-color: transparent;
+    color: #dcdcdc;
+    padding: 10px 18px;
+    text-align: left;
+    border-radius: 0;
+    transition: background 0.3s ease;
+}
+
+.dropdown .page-link:hover {
+    background-color: rgba(80, 80, 120, 0.6);
+    color: #ffffff;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: #000000;
+    padding: 40px;
+    border-radius: 12px;
+    
+    justify-content: center;
+    box-shadow:
+        0 0 15px #6dd5fa,
+        0 0 25px #8e44ad,
+        0 0 35px #e74c3c,
+        inset 0 0 10px #111;
+}
+
+h1,
+h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+p {
+    margin-bottom: 20px;
+    text-align: justify;
+    line-height: 1.6;
+    color: #dddddd;
+    padding: 0 20px;
+}
+
+blockquote {
+    font-style: italic;
+    margin-top: 30px;
+    text-align: right;
+    color: #cfcfcf;
+    padding: 0 20px;
+}
+
+blockquote::before {
+    content: "“";
+    font-size: 2em;
+    vertical-align: top;
+    color: #dcdcdc;
+}
+
+blockquote::after {
+    content: "”";
+    font-size: 2em;
+    vertical-align: bottom;
+    color: #aaa;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #2e2e2e, #0a0f1d, #020d19);
+    color: #ffffff;
+    padding: 15px 0;
+    font-family: 'Arial', sans-serif;
+    position: relative;
+    z-index: 10;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.1); /* léger halo bleu */
+}
+
+/* Effet au survol du header */
+header:hover {
+    background: linear-gradient(to right, #3e3e3e, #1a1f2d, #122d39);
+    box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2); /* glow plus marqué */
+    cursor: default;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+
+iframe {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+
+.blog-post{
+    border: white solid;
+    border-radius: 20px;
+    padding: 4%;
+    text-align: center;
+}
+
+.footer {
+    background-color: #0b1d2f; /* bleu nuit */
+    color: #a0c8f0; /* bleu clair */
+    padding: 20px 15px;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: inset 0 2px 10px rgba(160, 200, 240, 0.2);
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .footer p {
+    margin: 0;
+    font-size: 1rem;
+  }
+  
+  .footer small {
+    display: block;
+    margin-top: 8px;
+    color: #6688aa;
+    font-size: 0.85rem;
+  }
+  
+  .footer-nav {
+    margin-top: 12px;
+  }
+  
+  .footer-nav a {
+    color: #a0c8f0;
+    margin: 0 12px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-nav a:hover {
+    color: #f0f8ff; /* un bleu très clair */
+    text-decoration: underline;
+  }
+  .blog-post {
+    border-radius: 20px;
+    padding: 4%;
+    text-align: center;
+    background-color: rgba(10, 10, 25, 0.9);
+    box-shadow:
+        0 0 15px #6dd5fa,
+        0 0 25px #8e44ad,
+        0 0 35px #e74c3c,
+        inset 0 0 10px #111;
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.blog-post img {
+    width: 90%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+}
+
+.container img {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
