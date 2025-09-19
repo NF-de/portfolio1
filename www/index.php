@@ -13,6 +13,7 @@ $pageHierarchy = BDD::buildHierarchy($pages);
 <html lang="fr">
 
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cosmodrome</title>
@@ -31,12 +32,12 @@ $pageHierarchy = BDD::buildHierarchy($pages);
     </div>
 
 
-    <div class="menu-header">
-        <?php echo BDD::displayPages($pageHierarchy); ?>
-    </div>
+<div class="menu-header">
+            <?php echo BDD::displayPages($pageHierarchy); ?>
+        </div>
 
     <div class="contenu">
-
+        
 
         <div class="container">
             <div class="presentation">
@@ -45,12 +46,18 @@ $pageHierarchy = BDD::buildHierarchy($pages);
                     <p>
                         Bonjour ! Je m'appelle Fialoux Mateo et je suis passionné par le développement web et de
                         développement de jeux vidéo.
-                        Je crée des projets, des portfolios et des applications interactives pour partager ma passion et
+                        Je crée des projets, des sites internets et des applications interactives pour partager ma passion et
                         mon savoir-faire.
                     </p>
                     <p>
-                        Sur ce site, vous découvrirez mes travaux, mes expériences et mes projets liés à l’exploration
-                        spatiale et au web.
+                        Mon paracours :
+                        <br>
+                        Bac Pro Systèmes Numériques → formation technique solide en réseau.
+                        <br>
+                        BTS SIO (Services Informatiques aux Organisations) → acquisition des compétences en développement.
+                    </p>
+                    <p>
+                        Sur ce site, vous découvrirez mes travaux, mes expériences et mes projets liés au développement web ainsi que le développement de jeux vidéo.
                     </p>
                     <img src="image/photo.png" alt="Portrait de Fialoux Mateo" class="portrait">
                 </div>
@@ -75,7 +82,6 @@ $pageHierarchy = BDD::buildHierarchy($pages);
                         echo "<img src='image/$img' alt='' style='max-width:800px;' />";
                     }
                 }
-
                 $mapUrl = $contenu->getMapUrl();
                 if ($mapUrl) {
                     echo "<iframe src='$mapUrl' width='600' height='450' style='border:0;' allowfullscreen='' loading='lazy' referrerpolicy='no-referrer-when-downgrade'></iframe>";
@@ -96,29 +102,30 @@ $pageHierarchy = BDD::buildHierarchy($pages);
                 <a href="">📘Facebook</a>
                 <a href="">📸Instagram</a>
             </nav>
-        </div>
+            <br>
+            <a href="log_admin.php"><button class="neon-btn">Connexion</button></a>
+       </div>
     </footer>
 </body>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.page-link').forEach(link => {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                const pageId = this.dataset.id;
-
-                fetch('get_contenu.php?page_id=' + pageId)
-                    .then(response => response.text())
-                    .then(html => {
-                        const presentationDiv = document.querySelector('.presentation-container');
-                        presentationDiv.innerHTML = html; // remplace uniquement le contenu
-                        presentationDiv.scrollIntoView({ behavior: 'smooth' });
-                    })
-                    .catch(error => {
-                        console.error('Erreur AJAX :', error);
-                    });
-            });
+   document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.page-link').forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const pageId = this.dataset.id;
+            fetch('get_contenu.php?page_id=' + pageId)
+                .then(response => response.text())
+                .then(html => {
+                    const presentationDiv = document.querySelector('.presentation-container');
+                    presentationDiv.innerHTML = html; // remplace uniquement le contenu
+                    presentationDiv.scrollIntoView({ behavior: 'smooth' });
+                })
+                .catch(error => {
+                    console.error('Erreur AJAX :', error);
+                });
         });
     });
+});
 
 </script>
 <script src="script.js"></script>

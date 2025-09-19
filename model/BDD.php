@@ -139,20 +139,6 @@ class BDD
         return $hierarchy;
     }
 
-    public static function getBlogPosts(): array
-    {
-        $db = new SQLite3('../data/db-cosmodrome.db');
-        $result = $db->query('SELECT id, title, message, image FROM blogpost ORDER BY id DESC');
-    
-        $posts = [];
-        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-            $posts[] = $row;
-        }
-    
-        return $posts;
-    }
-    
-
 
     static public function displayPages(array $pages): string
     {
@@ -172,35 +158,5 @@ class BDD
         }
         return $html;
     }
-
-
-
-
-    public static function insertMessage(array $blogpost): bool
-    {
-        $db = new SQLite3('../data/db-cosmodrome.db');
-    
-        if (!$db) {
-            die("Connection failed: " . $db->lastErrorMsg());
-        }
-    
-        $requete = "INSERT INTO blogpost (title, message, image) 
-                    VALUES (:title, :message, :image)";
-        $stmt = $db->prepare($requete);
-    
-        if (!$stmt) {
-            die("Failed to prepare statement: " . $db->lastErrorMsg());
-        }
-    
-        $stmt->bindValue(':title', $blogpost['title'], SQLITE3_TEXT);
-        $stmt->bindValue(':message', $blogpost['message'], SQLITE3_TEXT);
-        $stmt->bindValue(':image', $blogpost['image'] ?? null, SQLITE3_TEXT);
-    
-        $result = $stmt->execute();
-        $db->close();
-    
-        return $result !== false;
-    }
-    
 }
 ?>

@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&family=Song+Myung&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+
 /* Réinitialiser les marges et paddings par défaut */
 * {
     margin: 0;
@@ -7,8 +10,9 @@
 
 html,
 body {
+    font-family: 'Nanum Gothic', sans-serif;
     height: 100%;
-    font-family: Arial, Helvetica, sans-serif
+
 }
 
 #background-video {
@@ -42,7 +46,8 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    min-height: 110%; /* augmente pour suivre la vidéo */
+    min-height: 110%;
+    /* augmente pour suivre la vidéo */
     text-align: center;
     color: #fff;
     z-index: 1;
@@ -51,12 +56,14 @@ body {
 .title {
     font-size: 3rem;
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(-50px);
+    /* vers le haut */
     transition: transform 1s ease-out, opacity 1s ease-out;
     z-index: 2;
     position: relative;
     text-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
 }
+
 
 .title.scrolled {
     opacity: 1;
@@ -88,30 +95,43 @@ body {
 
 .contenu {
     background-image: url(image/architechture.jpg);
-    background-size: cover; /* couvre tout le conteneur */
-    background-position: top; /* commence par le haut de l'image */
-    background-repeat: no-repeat; /* pas de répétition */
+    background-size: cover;
+    /* couvre tout le conteneur */
+    background-position: top;
+    /* commence par le haut de l'image */
+    background-repeat: no-repeat;
+    /* pas de répétition */
     width: 100%;
-    min-height: 400px; /* hauteur minimale */
+    min-height: 400px;
+    /* hauteur minimale */
     color: white;
-    padding-top: 100px; /* espace depuis le haut, ajuste selon ton besoin */
-    padding-bottom: 100px; /* espace depuis le bas, ajuste selon ton besoin */
+    padding-top: 100px;
+    /* espace depuis le haut, ajuste selon ton besoin */
+    padding-bottom: 100px;
+    /* espace depuis le bas, ajuste selon ton besoin */
 
 }
 
 
 .menu-header {
     display: flex;
-    justify-content: space-around; /* liens répartis sur toute la largeur */
+    justify-content: space-around;
+    /* liens répartis sur toute la largeur */
     align-items: center;
     padding: 15px 0;
-    background-color: rgba(0, 0, 0, 0.4); /* semi-transparent pour voir la vidéo */
-    backdrop-filter: blur(5px); /* effet verre dépoli */
-    position: absolute; /* superposé à la vidéo */
-    bottom: -100px; /* distance depuis le bas de la vidéo */
-    left: 0; 
-    width: 100%; /* prend toute la largeur de l'écran/vidéo */
-    z-index: 10; /* au-dessus de la vidéo */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* semi-transparent pour voir la vidéo */
+    backdrop-filter: blur(5px);
+    /* effet verre dépoli */
+    position: absolute;
+    /* superposé à la vidéo */
+    bottom: -100px;
+    /* distance depuis le bas de la vidéo */
+    left: 0;
+    width: 100%;
+    /* prend toute la largeur de l'écran/vidéo */
+    z-index: 10;
+    /* au-dessus de la vidéo */
 }
 
 .menu-header .page-link {
@@ -121,93 +141,180 @@ body {
     padding: 10px 20px;
     border-radius: 8px;
     transition: all 0.3s ease;
-    background-color: rgba(0, 0, 0, 0.3); 
+
 }
 
 .menu-header .page-link:hover {
-    background-color: rgba(230, 0, 38, 0.8); 
-    transform: scale(1.05);
+    background-color: rgba(230, 0, 38, 0.8);
+    transform: scale(1.02);
 }
 
 
+/* ===========================
+   MENU PRINCIPAL - Thème Corée
+   =========================== */
 
 /* Conteneur des éléments du menu */
 .menu-item {
     position: relative;
     display: inline-block;
-    margin: 0 15px;
-    font-family: inherit;
+    margin: 0 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
 }
 
-/* LIENS principaux du menu */
+/* LIENS principaux */
 .page-link {
     display: block;
-    padding: 10px 18px;
-    color: #ffffff;
-    background-color: rgba(40, 40, 60, 0.85);
+    padding: 12px 20px;
+    color: #fff;
+    background: none;
+    /* pas de fond */
+    border-radius: 12px;
     text-decoration: none;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 8px rgba(100, 255, 255, 0.15);
     font-weight: bold;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 6px rgba(255, 50, 50, 0.7),
+        0 0 12px rgba(0, 200, 255, 0.6);
+    /* effet lumineux */
 }
 
 .page-link:hover {
-    background-color: rgba(100, 100, 160, 0.9);
-    box-shadow: 0 0 12px #6dd5fa;
-    color: #ffffff;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 50, 50, 0.9),
+        0 0 20px rgba(0, 200, 255, 0.8);
+    transform: scale(1.05);
 }
 
-/* DROPDOWN (sous-menu) */
+.menu-item {
+    flex: 0 0 auto;
+    /* taille naturelle, pas de rétrécissement */
+    margin: 0 12px;
+    font-family: 'Do Hyeon', sans-serif;
+    /* police thème Corée */
+}
+
+/* LIENS PRINCIPAUX */
+.menu-item>.page-link {
+    display: block;
+    padding: 10px 18px;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.menu-item>.page-link:hover {
+    background: rgba(255, 50, 50, 0.8);
+    transform: scale(1.05);
+    text-shadow: 0 0 10px rgba(255, 50, 50, 0.8);
+}
+
+/* ===========================
+   DROPDOWN
+   =========================== */
 .dropdown {
     display: none;
     position: absolute;
     top: 100%;
     left: 0;
-    min-width: 180px;
-    background-color: rgba(25, 25, 40, 0.98);
-    border-radius: 10px;
+    min-width: 100px;
+    background: rgba(15, 15, 25, 0.7);
+    border-radius: 12px;
     padding: 8px 0;
-    z-index: 20;
-    box-shadow: 0 0 15px rgba(80, 150, 255, 0.2);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 0 20px rgba(255, 50, 50, 0.25);
+    animation: fadeIn 0.3s ease forwards;
 }
 
 .menu-item:hover>.dropdown {
     display: block;
 }
 
-/* Liens du sous-menu */
 .dropdown .page-link {
-    background-color: transparent;
-    color: #dcdcdc;
-    padding: 10px 18px;
-    text-align: left;
+    background: none;
+    padding: 10px 16px;
+    font-weight: normal;
+    color: #ddd;
     border-radius: 0;
-    transition: background 0.3s ease;
+    text-shadow: none;
 }
 
 .dropdown .page-link:hover {
-    background-color: rgba(80, 80, 120, 0.6);
-    color: #ffffff;
+    background: rgba(255, 50, 50, 0.3);
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255, 50, 50, 0.8);
+}
+
+/* ===========================
+   ANIMATIONS
+   =========================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+@media (max-width: 768px) {
+    .menu-item {
+        display: block;
+        margin: 8px 0;
+    }
+
+    .page-link {
+        width: 100%;
+        text-align: center;
+    }
+
+    .dropdown {
+        position: relative;
+        top: 0;
+        left: 0;
+        min-width: 100%;
+        box-shadow: none;
+    }
+
+    .dropdown .page-link {
+        text-align: center;
+    }
 }
 
 .container {
     max-width: 800px;
     margin: auto;
-    background: rgba(0, 0, 0, 0.5); /* fond semi-transparent sombre */
+    background: rgba(0, 0, 0, 0.5);
+    /* fond semi-transparent sombre */
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     padding: 30px;
     border-radius: 12px;
     justify-content: center;
-    color: #fff; /* texte blanc */
+    color: #fff;
+    /* texte blanc */
 
     /* Shadow néon rouge */
     box-shadow:
-        0 0 10px #ff4d4d,   /* lumière rouge diffuse */
-        0 0 20px #ff1a1a,   /* halo plus large */
-        0 0 30px #ff0000,   /* glow rouge vif */
-        inset 0 0 5px #660000; /* léger effet intérieur */
+        0 0 10px #ff4d4d,
+        /* lumière rouge diffuse */
+        0 0 20px #ff1a1a,
+        /* halo plus large */
+        0 0 30px #ff0000,
+        /* glow rouge vif */
+        inset 0 0 5px #660000;
+    /* léger effet intérieur */
 }
 
 
@@ -291,22 +398,21 @@ iframe {
     padding: 0 20px;
 }
 
-.blog-post {
-    border: white solid;
-    border-radius: 20px;
-    padding: 4%;
-    text-align: center;
-}
-
 .footer {
-    background-color: #0b1d2f;
-    /* bleu nuit */
-    color: #a0c8f0;
-    /* bleu clair */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* semi-transparent */
+    backdrop-filter: blur(5px);
+    /* effet verre dépoli */
+    -webkit-backdrop-filter: blur(5px);
+    color: #fff;
+    /* texte blanc */
     padding: 20px 15px;
     text-align: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    box-shadow: inset 0 2px 10px rgba(160, 200, 240, 0.2);
+    box-shadow: 0 0 15px rgba(230, 0, 38, 0.4);
+    /* halo rouge doux */
+    border-top: 2px solid rgba(255, 0, 38, 0.5);
+    /* bord supérieur rouge subtil */
 }
 
 .footer-content {
@@ -322,7 +428,8 @@ iframe {
 .footer small {
     display: block;
     margin-top: 8px;
-    color: #6688aa;
+    color: #ff9999;
+    /* texte secondaire rouge clair */
     font-size: 0.85rem;
 }
 
@@ -331,7 +438,8 @@ iframe {
 }
 
 .footer-nav a {
-    color: #a0c8f0;
+    color: #ff4d4d;
+    /* liens rouge vif */
     margin: 0 12px;
     text-decoration: none;
     font-weight: 500;
@@ -339,34 +447,59 @@ iframe {
 }
 
 .footer-nav a:hover {
-    color: #f0f8ff;
-    /* un bleu très clair */
+    color: #ff9999;
+    /* liens plus clair au hover */
     text-decoration: underline;
 }
 
-.blog-post {
-    border-radius: 20px;
-    padding: 4%;
-    text-align: center;
-    background-color: rgba(10, 10, 25, 0.9);
-    box-shadow:
-        0 0 15px #6dd5fa,
-        0 0 25px #8e44ad,
-        0 0 35px #e74c3c,
-        inset 0 0 10px #111;
-    color: #ffffff;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-}
-
-.blog-post img {
-    width: 90%;
-    height: auto;
-    display: block;
-    margin: 20px auto;
-    border-radius: 12px;
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
-}
 
 .container img {
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.neon-btn {
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 1.2rem;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.25);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 8px rgba(255, 50, 50, 0.6),
+        0 0 15px rgba(255, 50, 50, 0.4);
+}
+
+.neon-btn:hover {
+    background: rgba(255, 50, 50, 0.9);
+    color: #fff;
+    box-shadow: 0 0 15px #ff1a1a,
+        0 0 25px #ff4d4d,
+        0 0 40px #ff0000;
+    transform: scale(1.08);
+}
+
+/* Petit effet “lumière qui passe” */
+.neon-btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            transparent,
+            rgba(255, 255, 255, 0.5),
+            transparent);
+    transform: skewX(-20deg);
+}
+
+.neon-btn:hover::after {
+    left: 130%;
+    transition: left 0.8s ease;
 }

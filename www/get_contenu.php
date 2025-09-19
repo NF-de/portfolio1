@@ -14,28 +14,7 @@ if (isset($_GET['page_id'])) {
 
     $titrePage = $result['titre'] ?? '';
 
-    if (strtolower($titrePage) === 'blog') {
-        $posts = BDD::getBlogPosts();
-
-        if (!empty($posts)) {
-            foreach ($posts as $post) {
-                echo "<div class='blog-post'>";
-                echo "<h3>" . htmlspecialchars($post['title']) . "</h3>";
-
-                if (!empty($post['image'])) {
-                    echo "<img src='" . htmlspecialchars($post['image']) . "' alt='Image du blog'>";
-                }
-
-                echo "<p>" . nl2br(htmlspecialchars($post['message'])) . "</p>";
-                echo "</div><br><br>";
-            }
-        } else {
-            echo "<p>Aucun article pour le moment.</p>";
-        }
-
-    } else {
-
-        $contenus = BDD::getContenuByPageId($pageId);
+           $contenus = BDD::getContenuByPageId($pageId);
 
         foreach ($contenus as $contenu) {
             echo "<h2>" . htmlspecialchars($contenu->getTitre()) . "</h2>";
@@ -55,4 +34,4 @@ if (isset($_GET['page_id'])) {
             }
         }
     }
-}
+
