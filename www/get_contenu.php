@@ -24,7 +24,7 @@ if (isset($_GET['page_id'])) {
             foreach ($images as $img) {
                 $img = trim($img);
                 if ($img) {
-                    echo "<img src='image/$img' alt='' style='max-width:800px;' />";
+                    echo "<img src='image/$img' alt='' />";
                 }
             }
 

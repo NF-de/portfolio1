@@ -16,7 +16,7 @@ $pageHierarchy = BDD::buildHierarchy($pages);
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cosmodrome</title>
+    <title>Portfolio</title>
     <link rel="stylesheet" href="acceuil.css">
     <link rel="shortcut icon" href="image/icon.png">
 </head>
@@ -79,7 +79,7 @@ $pageHierarchy = BDD::buildHierarchy($pages);
                 foreach ($images as $img) {
                     $img = trim($img);
                     if ($img) {
-                        echo "<img src='image/$img' alt='' style='max-width:800px;' />";
+                        echo "<img src='image/$img' alt='' />";
                     }
                 }
                 $mapUrl = $contenu->getMapUrl();

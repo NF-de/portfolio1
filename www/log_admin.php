@@ -33,11 +33,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion Admin</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="styles_log_admin.css">
 </head>
 
 <body>
+    <video id="background-video" autoplay loop muted>
+        <source src="video/temple.mp4" type="video/mp4">
+    </video>
     <div class="content">
         <div class="login-container">
             <h2>Connexion Admin</h2>

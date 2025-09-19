@@ -2,7 +2,6 @@ body {
     background: radial-gradient(ellipse at center, #000010 0%, #000000 100%);
     color: #c8d6f7;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: url(image/fond-espace.png);
     margin: 20px;
 }
 
@@ -14,11 +13,21 @@ body::before {
     pointer-events: none;
     z-index: -1;
 }
-
+#background-video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 110%;
+    height: 110%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: -2;
+    filter: blur(3px);
+}
 h1 {
     font-size: 2.5em;
-    color: #61dafb;
-    text-shadow: 0 0 10px #61dafb;
+    color: #ffb3ec; /* rose clair */
+    text-shadow: 0 0 8px rgba(255, 179, 236, 0.5);
     margin-bottom: 30px;
 }
 
@@ -28,13 +37,15 @@ h1 {
     overflow-y: auto;
 }
 
+/* Cartes menu */
 .menu-item {
     margin-left: 20px;
     margin-bottom: 10px;
     padding: 8px 12px;
-    background: linear-gradient(145deg, #12142a, #1a1c3f);
-    border-radius: 8px;
-    box-shadow: 0 0 8px rgba(97, 218, 251, 0.5), inset 0 0 5px #1a1c3f;
+    background: rgba(25, 15, 35, 0.45); /* plus transparent */
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(255, 179, 236, 0.25);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -44,7 +55,7 @@ h1 {
 .toggle-button {
     cursor: pointer;
     margin-right: 10px;
-    color: #61dafb;
+    color: #ffccf2;
     font-weight: bold;
     user-select: none;
     transition: transform 0.3s ease;
@@ -53,82 +64,82 @@ h1 {
 .page-title {
     flex-grow: 1;
     font-weight: bold;
-    color: #a0c8ff;
+    color: #ffe6f7;
     user-select: text;
     cursor: default;
 }
 
+/* Sous-pages */
 .expanded > .children {
     display: block;
     margin-top: 6px;
 }
-
 .children {
     display: none;
     margin-left: 20px;
 }
 
+/* Boutons */
 .btn-modifier, .btn-supprimer {
     text-decoration: none;
     padding: 5px 12px;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 0.9em;
     margin-left: 10px;
     user-select: none;
-    transition: background-color 0.3s ease;
-    color: #eee;
+    transition: all 0.3s ease;
+    color: #fff;
 }
 
 .btn-modifier {
-    background-color: #3399ff;
-    box-shadow: 0 0 8px #3399ff;
+    background-color: rgba(255, 128, 213, 0.6); /* semi-transparent */
+    box-shadow: 0 0 8px rgba(255, 128, 213, 0.4);
 }
 
 .btn-modifier:hover {
-    background-color: #66b3ff;
-    box-shadow: 0 0 12px #66b3ff;
+    background-color: rgba(255, 179, 236, 0.8);
+    box-shadow: 0 0 12px rgba(255, 179, 236, 0.6);
 }
 
 .btn-supprimer {
-    background-color: #ff4444;
-    box-shadow: 0 0 8px #ff4444;
+    background-color: rgba(255, 102, 178, 0.5);
+    box-shadow: 0 0 8px rgba(255, 102, 178, 0.3);
 }
 
 .btn-supprimer:hover {
-    background-color: #ff6666;
-    box-shadow: 0 0 12px #ff6666;
+    background-color: rgba(255, 128, 192, 0.7);
+    box-shadow: 0 0 12px rgba(255, 128, 192, 0.5);
 }
 
+/* Scrollbar Sakura discret */
 #pages-container::-webkit-scrollbar {
     width: 8px;
 }
-
 #pages-container::-webkit-scrollbar-track {
-    background: #0b0c16;
+    background: rgba(20, 10, 30, 0.4);
+    backdrop-filter: blur(4px);
 }
-
 #pages-container::-webkit-scrollbar-thumb {
-    background: #3399ff;
-    border-radius: 4px;
+    background: rgba(255, 179, 236, 0.5);
+    border-radius: 6px;
 }
-
 #pages-container::-webkit-scrollbar-thumb:hover {
-    background: #66b3ff;
+    background: rgba(255, 179, 236, 0.7);
 }
 
+/* Formulaires */
 form {
-    background: linear-gradient(145deg, #12142a, #1a1c3f);
+    background: rgba(25, 10, 30, 0.4);
+    backdrop-filter: blur(12px);
     padding: 25px 30px;
-    border-radius: 12px;
+    border-radius: 15px;
     max-width: 100%;
-    box-shadow:
-        0 0 15px rgba(97, 218, 251, 0.7),
-        inset 0 0 10px #1a1c3f;
+    box-shadow: 0 0 12px rgba(255, 179, 236, 0.25);
 }
 
 label {
     font-weight: bold;
-    color: #82c7ff;
+    color: #ffccf2;
 }
 
 input[type="text"],
@@ -139,10 +150,11 @@ textarea {
     margin-bottom: 20px;
     border-radius: 8px;
     border: none;
-    background-color: #0a0b1c;
-    color: #a0c8ff;
+    background: rgba(15, 5, 25, 0.5);
+    backdrop-filter: blur(4px);
+    color: #ffe6f7;
     font-size: 1em;
-    box-shadow: inset 0 0 8px #3399ff;
+    box-shadow: inset 0 0 6px rgba(255, 179, 236, 0.3);
     resize: vertical;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -150,63 +162,157 @@ textarea {
 input[type="text"]:focus,
 textarea:focus {
     outline: none;
-    box-shadow: 0 0 12px #66b3ff;
-    background-color: #11132e;
+    box-shadow: 0 0 10px rgba(255, 179, 236, 0.6);
+    background: rgba(25, 10, 35, 0.6);
 }
 
-button[type="submit"] {
-    background-color: #3399ff;
+/* Boutons submit */
+button[type="submit"],
+input[type="submit"] {
+    background: rgba(255, 128, 213, 0.6);
     color: white;
     border: none;
     padding: 12px 28px;
-    border-radius: 8px;
+    border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 0 10px #3399ff;
-    transition: background-color 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 128, 213, 0.4);
+    transition: all 0.3s ease;
     margin-right: 15px;
+    font-size: 1em;
 }
 
-button[type="submit"]:hover {
-    background-color: #66b3ff;
+button[type="submit"]:hover,
+input[type="submit"]:hover {
+    background: rgba(255, 179, 236, 0.8);
+    box-shadow: 0 0 14px rgba(255, 179, 236, 0.5);
+    transform: scale(1.02);
 }
 
+/* Liens */
 a {
-    color: #82c7ff;
+    color: #ffccf2;
     text-decoration: none;
     font-weight: bold;
     line-height: 2.4em;
 }
-
 a:hover {
     text-decoration: underline;
+    color: #ffe6f7;
 }
 
+/* Messages d’erreur */
 p[style*="color:red"] {
-    background-color: #440000;
+    background-color: rgba(80, 0, 40, 0.4);
     padding: 10px 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 12px #ff4444;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 102, 178, 0.4);
     font-weight: bold;
     max-width: 700px;
+    color: #ff99bb !important;
 }
 
-input[type="submit"] {
-    background-color: #3399ff;
-    color: white;
+/* Style général du select */
+select[name="parent_id"] {
+    min-width: 220px;        /* largeur minimale */
+    max-width: 350px;        /* largeur max pour éviter qu’il prenne tout l’écran */
+    padding: 10px 14px;
     border: none;
-    padding: 12px 28px;
+    border-radius: 10px;
+    background: rgba(25, 10, 35, 0.5); /* fond sombre translucide */
+    backdrop-filter: blur(6px);
+    color: #ffe6f7; /* texte rose pâle */
+    font-size: 1em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 0 8px rgba(255, 179, 236, 0.3), inset 0 0 6px rgba(255, 179, 236, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block; /* reste compact */
+}
+
+/* Effet au survol */
+select[name="parent_id"]:hover {
+    background: rgba(35, 15, 50, 0.6);
+    box-shadow: 0 0 12px rgba(255, 179, 236, 0.5);
+}
+
+/* Effet au focus */
+select[name="parent_id"]:focus {
+    outline: none;
+    background: rgba(45, 20, 60, 0.65);
+    box-shadow: 0 0 14px rgba(255, 179, 236, 0.7);
+}
+
+/* Style des options */
+select[name="parent_id"] option {
+    background: #1a0f2a; /* fond uni sombre */
+    color: #ffe6f7;
+    padding: 10px;
+}
+
+/* Option par défaut en gris */
+select[name="parent_id"] option[value=""] {
+    color: #bbb;
+    font-style: italic;
+}
+
+/* Style du champ input file */
+input[type="file"] {
+    color: #ffe6f7;
+    font-size: 0.9em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    cursor: pointer;
+    background: rgba(25, 10, 35, 0.4); /* fond derrière le texte */
+    border-radius: 10px;
+    padding: 6px;
+    border: none;
+    backdrop-filter: blur(6px);
+    max-width: 300px;
+}
+
+/* Style du bouton "Choisir un fichier" */
+input[type="file"]::file-selector-button {
+    background: rgba(255, 179, 236, 0.25);
+    border: none;
     border-radius: 8px;
+    padding: 8px 14px;
+    color: #ffe6f7;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 0 10px #3399ff;
-    transition: background-color 0.3s ease;
-    margin-right: 15px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 8px rgba(255, 179, 236, 0.3);
+}
+
+input[type="file"]::file-selector-button:hover {
+    background: rgba(255, 179, 236, 0.4);
+    box-shadow: 0 0 12px rgba(255, 179, 236, 0.5);
+}
+
+
+/* Bouton submit */
+input[type="submit"] {
+    background: rgba(255, 179, 236, 0.25);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    color: #ffe6f7;
+    font-weight: bold;
     font-size: 1em;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255, 179, 236, 0.3);
+    transition: all 0.3s ease;
+    margin-left: auto; /* pousse le bouton à droite */
 }
 
 input[type="submit"]:hover {
-    background-color: #66b3ff;
+    background: rgba(255, 179, 236, 0.4);
+    box-shadow: 0 0 14px rgba(255, 179, 236, 0.5);
 }
 
+/* Conteneur pour aligner les boutons */
+.form-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* espace entre les deux boutons */
+    margin-top: 12px;
+}
