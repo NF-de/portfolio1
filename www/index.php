@@ -25,20 +25,43 @@ $pageHierarchy = BDD::buildHierarchy($pages);
         <source src="video/coree.mp4" type="video/mp4">
     </video>
     <div class="overlay"></div>
+
     <div class="content">
         <h1 class="title">BIENVENUE SUR MON PORTFOLIO</h1>
     </div>
+
+
+    <div class="menu-header">
         <?php echo BDD::displayPages($pageHierarchy); ?>
-    </header>
+    </div>
+
     <div class="contenu">
+
+
         <div class="container">
+            <div class="presentation">
+                <div class="presentation-container">
+                    <h2>À propos de moi</h2>
+                    <p>
+                        Bonjour ! Je m'appelle Fialoux Mateo et je suis passionné par le développement web et de
+                        développement de jeux vidéo.
+                        Je crée des projets, des portfolios et des applications interactives pour partager ma passion et
+                        mon savoir-faire.
+                    </p>
+                    <p>
+                        Sur ce site, vous découvrirez mes travaux, mes expériences et mes projets liés à l’exploration
+                        spatiale et au web.
+                    </p>
+                    <img src="image/photo.png" alt="Portrait de Fialoux Mateo" class="portrait">
+                </div>
+            </div>
+
             <?php
             if (isset($_GET['page_id'])) {
                 $pageId = (int) $_GET['page_id'];
             } else {
                 $pageId = 6;
             }
-
             $contenus = BDD::getContenuByPageId($pageId);
 
             foreach ($contenus as $contenu) {
@@ -62,13 +85,16 @@ $pageHierarchy = BDD::buildHierarchy($pages);
 
         </div>
     </div>
+
+
+
     <footer class="footer">
         <div class="footer-content">
-            <p>🚀 &copy; 2025 Cosmodrome — L’aventure spatiale commence ici</p>
-            <small>Promouvoir la passion de l’astronomie et l’exploration des étoiles</small>
+            <p>⛩️ &copy; 2025 Portfolio — Mateo Fialoux</p>
+            <small>Promouvoir la passion du développement</small>
             <nav class="footer-nav">
-                <a href="https://www.facebook.com/people/CosmoDr%C3%B4me-Observatoire-Claude-Tavenier/100039266894686/">📘Facebook</a>
-                <a href="https://www.instagram.com/explore/locations/934652393232471/cosmodrome-observatoire-claude-tavenier/">📸Instagram</a>
+                <a href="">📘Facebook</a>
+                <a href="">📸Instagram</a>
             </nav>
         </div>
     </footer>
@@ -83,9 +109,9 @@ $pageHierarchy = BDD::buildHierarchy($pages);
                 fetch('get_contenu.php?page_id=' + pageId)
                     .then(response => response.text())
                     .then(html => {
-                        const contenuDiv = document.querySelector('.contenu');
-                        contenuDiv.innerHTML = html;
-                        contenuDiv.scrollIntoView({ behavior: 'smooth' });
+                        const presentationDiv = document.querySelector('.presentation-container');
+                        presentationDiv.innerHTML = html; // remplace uniquement le contenu
+                        presentationDiv.scrollIntoView({ behavior: 'smooth' });
                     })
                     .catch(error => {
                         console.error('Erreur AJAX :', error);
@@ -93,6 +119,8 @@ $pageHierarchy = BDD::buildHierarchy($pages);
             });
         });
     });
+
 </script>
-   <script src="script.js"></script>
+<script src="script.js"></script>
+
 </html>

@@ -46,32 +46,6 @@ function afficherPagesAvecBoutons(array $pages): string
     return $html;
 }
 
-function afficherMessagesAvecBoutons(): string
-{
-    $html = '';
-    $posts = BDD::getBlogPosts();
-
-    foreach ($posts as $post) {
-        $html .= '<div class="menu-item">';
-        $html .= '<div class="message-content">';
-        $html .= '<div class="page-title">' . htmlspecialchars($post['title']) . '</div>';
-        $html .= '<p>' . nl2br(htmlspecialchars($post['message'])) . '</p>';
-
-        if (!empty($post['image'])) {
-            $html .= '<img src="' . htmlspecialchars($post['image']) . '" alt="Image du message" style="max-width:200px;">';
-        }
-
-        $html .= '</div>';
-        $html .= '<div class="message-actions">';
-        $html .= '<a href="modifier_message.php?id=' . $post['id'] . '" class="btn-modifier">Modifier</a>';
-        $html .= '<a href="supprimer_message.php?id=' . $post['id'] . '" class="btn-supprimer" onclick="return confirm(\'Supprimer ce message ?\');">Supprimer</a>';
-        $html .= '</div>';
-        $html .= '</div>';
-    }
-
-    return $html;
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -114,51 +88,9 @@ function afficherMessagesAvecBoutons(): string
     </div>
 
     <div class="right-panel">
-        <h2>Créer un nouveau message</h2>
-        <form id="albumForm" enctype="multipart/form-data">
-            <input type="text" id="title" name="title" placeholder="Titre">
-            <input type="text" id="message" name="message" placeholder="Message">
-            <input type="file" id="image" name="image" accept="image/*">
-            <input type="submit" value="Post">
-        </form>
-
-        <h2>Messages existants</h2>
-        <?= afficherMessagesAvecBoutons() ?>
-    </div>
     </div>
     <a href="logout.php">Se déconnecter</a>
 
-    <script>
-        document.getElementById('albumForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const title = document.getElementById('title').value.trim();
-            const message = document.getElementById('message').value.trim();
-
-            if (title === '' || message === '') {
-                alert('Veuillez remplir les deux champs : Titre et Message.');
-                return;
-            }
-
-            const form = e.target;
-            const formData = new FormData(form);
-
-            fetch('blogConfirm.php', {
-                method: 'POST',
-                body: formData
-            })
-                .then(result => {
-                    console.log(result);
-                    alert('Message posté avec succès !');
-                    window.location.reload();
-                })
-
-                .catch(error => {
-                    console.error('Erreur :', error);
-                    alert('Une erreur est survenue lors de la publication.');
-                });
-        });
-    </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.toggle-button').forEach(button => {
