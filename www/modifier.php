@@ -13,22 +13,38 @@ require_once '../model/Classes.php';
 
 use Model\BDD;
 
-// Vérification de l'ID
 if (!isset($_GET['id'])) {
     die('ID de la page non spécifié.');
 }
 
-$pageId = (int) $_GET['id'];
+$pageId = intval($_GET['id']);
 
-// Récupération de la page et de son contenu
-$page = BDD::getPageById($pageId);
+$pages = BDD::getPagesHierarchy();
+$hierarchy = BDD::buildHierarchy($pages);
+
+// Fonction utilitaire pour retrouver une page par son ID
+function findPageById(array $pages, int $id)
+{
+    foreach ($pages as $page) {
+        if ($page->getId() === $id) {
+            return $page;
+        }
+        $children = $page->getChildren();
+        if ($children) {
+            $found = findPageById($children, $id);
+            if ($found) return $found;
+        }
+    }
+    return null;
+}
+
+$page = findPageById($hierarchy, $pageId);
 if (!$page) {
     die('Page introuvable.');
 }
 
 $contenus = BDD::getContenuByPageId($pageId);
 
-// Traitement du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nouveauTitre = $_POST['titre'] ?? '';
     $paragraphes = $_POST['paragraphes'] ?? [];
@@ -36,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($nouveauTitre === '') {
         $erreur = 'Le titre ne peut pas être vide.';
     } else {
-        // Mise à jour via la classe BDD
+        // Utilisation des méthodes de BDD (PDO)
         BDD::modifierPage($pageId, $nouveauTitre);
         BDD::modifierContenu($paragraphes);
 
@@ -45,14 +61,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Modifier la page</title>
     <link rel="stylesheet" href="admin.css">
 </head>
+
 <body>
     <video id="background-video" autoplay loop muted>
         <source src="video/page_modifier.mp4" type="video/mp4">
@@ -70,7 +87,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <?php foreach ($contenus as $index => $contenu): ?>
             <label for="paragraphe_<?= $index ?>">Contenu <?= $index + 1 ?> :</label><br>
-            <textarea id="paragraphe_<?= $index ?>" name="paragraphes[<?= $contenu->getId() ?>]" rows="10" cols="50"><?= htmlspecialchars($contenu->getParagraphe()) ?></textarea><br><br>
+            <textarea id="paragraphe_<?= $index ?>" 
+                      name="paragraphes[<?= $contenu->getId() ?>]" 
+                      rows="10" cols="50"><?= htmlspecialchars($contenu->getParagraphe()) ?></textarea><br><br>
         <?php endforeach; ?>
 
         <button type="submit">Enregistrer</button>

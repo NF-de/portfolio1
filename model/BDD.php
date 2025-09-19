@@ -24,7 +24,6 @@ class BDD
         }
         return self::$instance;
     }
-
     // Récupérer toutes les pages
     public static function getPagesHierarchy(): array
     {
@@ -44,8 +43,6 @@ class BDD
 
         return $pages;
     }
-
-    // Ajouter une page
     public static function ajouterPage(string $titre, ?int $parentId = null): int
     {
         $db = self::getConnection();
@@ -55,10 +52,8 @@ class BDD
         $stmt->bindValue(':parent_id', $parentId, $parentId !== null ? PDO::PARAM_INT : PDO::PARAM_NULL);
         $stmt->execute();
 
-        return (int)$db->lastInsertId();
+        return (int) $db->lastInsertId();
     }
-
-    // Ajouter du contenu
     public static function ajouterContenu(array $data): void
     {
         $db = self::getConnection();
@@ -74,7 +69,6 @@ class BDD
 
         $stmt->execute();
     }
-
     // Authentification
     public static function authenticateUser(string $username, string $password): bool
     {
@@ -87,8 +81,6 @@ class BDD
         $user = $stmt->fetch();
         return $user ? password_verify($password, $user['password']) : false;
     }
-
-    // Contenu par page
     public static function getContenuByPageId(int $pageId): array
     {
         $db = self::getConnection();
@@ -113,7 +105,6 @@ class BDD
 
         return $contenus;
     }
-
     // Construire hiérarchie des pages
     public static function buildHierarchy(array $pages, $parentId = null): array
     {
@@ -130,42 +121,22 @@ class BDD
         }
         return $hierarchy;
     }
-
-    // Affichage HTML des pages
-    public static function displayPages(array $pages, bool $withButtons = false): string
-{
-    $html = '';
-    foreach ($pages as $page) {
-        $hasChildren = !empty($page->getChildren());
-        $html .= '<div class="menu-item">';
-        
-        if ($hasChildren) {
-            $html .= '<span class="toggle-button">▶</span>';
-        } else {
-            $html .= '<span style="display:inline-block; width: 15px;"></span>';
-        }
-
-        $html .= '<span class="page-title">' . htmlspecialchars($page->getTitre()) . '</span>';
-
-        if ($withButtons) {
-            $html .= ' <a href="modifier.php?id=' . $page->getId() . '" class="btn-modifier">Modifier</a>';
-            $html .= ' <a href="supprimer.php?id=' . $page->getId() . '" class="btn-supprimer" onclick="return confirm(\'Êtes-vous sûr de vouloir supprimer cette page ?\');">Supprimer</a>';
-        }
-
-        if ($hasChildren) {
-            $html .= '<div class="children">';
-            $html .= self::displayPages($page->getChildren(), $withButtons);
+    public static function displayPages(array $pages): string
+    {
+        $html = '';
+        foreach ($pages as $page) {
+            $html .= '<div class="menu-item">';
+            $html .= '<a href="#" class="page-link" data-id="' . (int) $page->getId() . '">' . htmlspecialchars($page->getTitre()) . '</a>';
+            $children = $page->getChildren();
+            if (!empty($children)) {
+                $html .= '<div class="dropdown">';
+                $html .= self::displayPages($children);
+                $html .= '</div>';
+            }
             $html .= '</div>';
         }
-
-        $html .= '</div>';
+        return $html;
     }
-
-    return $html;
-}
-
-
-    // Récupérer les pages parents
     public static function getParentPages(): array
     {
         $db = self::getConnection();
@@ -184,46 +155,52 @@ class BDD
         }
         return $parents;
     }
-    public static function modifierPage(int $id, string $titre): void
-{
-    $db = self::getConnection();
-    $stmt = $db->prepare('UPDATE pages SET titre = :titre WHERE id = :id');
-    $stmt->bindValue(':titre', $titre, PDO::PARAM_STR);
-    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-    $stmt->execute();
-}
-
-public static function modifierContenu(array $paragraphes): void
-{
-    $db = self::getConnection();
-    $stmt = $db->prepare('UPDATE contenu SET paragraphe = :paragraphe WHERE id = :id');
-
-    foreach ($paragraphes as $id => $texte) {
-        $stmt->bindValue(':paragraphe', $texte, PDO::PARAM_STR);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    public static function modifierPage(int $id, string $nouveauTitre): void
+    {
+        $db = self::getConnection();
+        $stmt = $db->prepare("UPDATE pages SET titre = :titre WHERE id = :id");
+        $stmt->bindValue(":titre", $nouveauTitre, PDO::PARAM_STR);
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
         $stmt->execute();
     }
-}
 
-public static function getPageById(int $id)
-{
-    $pages = self::getPagesHierarchy();
-    $hierarchy = self::buildHierarchy($pages);
-
-    $finder = function($pages, $id) use (&$finder) {
-        foreach ($pages as $page) {
-            if ($page->getId() === $id) return $page;
-            $children = $page->getChildren();
-            if ($children) {
-                $found = $finder($children, $id);
-                if ($found) return $found;
-            }
+    public static function modifierContenu(array $paragraphes): void
+    {
+        $db = self::getConnection();
+        foreach ($paragraphes as $contenuId => $texte) {
+            $stmt = $db->prepare("UPDATE contenu SET paragraphe = :paragraphe WHERE id = :id");
+            $stmt->bindValue(":paragraphe", $texte, PDO::PARAM_STR);
+            $stmt->bindValue(":id", $contenuId, PDO::PARAM_INT);
+            $stmt->execute();
         }
-        return null;
-    };
 
-    return $finder($hierarchy, $id);
-}
+    }
+    public static function getPageTitreById(int $id): ?string
+    {
+        $db = self::getConnection();
+        $sql = "SELECT titre FROM pages WHERE id = :id LIMIT 1";
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
 
-}
-?>
+        $row = $stmt->fetch();
+        return $row ? $row['titre'] : null;
+    }
+    public static function supprimerPage(int $pageId): void
+    {
+        $db = self::getConnection();
+
+        // Supprimer le contenu lié
+        $stmt1 = $db->prepare("DELETE FROM contenu WHERE page_id = :pageId");
+        $stmt1->bindValue(":pageId", $pageId, PDO::PARAM_INT);
+        $stmt1->execute();
+
+        // Supprimer la page elle-même
+        $stmt2 = $db->prepare("DELETE FROM pages WHERE id = :pageId");
+        $stmt2->bindValue(":pageId", $pageId, PDO::PARAM_INT);
+        $stmt2->execute();
+    }
+
+
+
+} ?>
