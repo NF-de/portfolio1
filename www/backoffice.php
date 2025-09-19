@@ -40,7 +40,7 @@ function afficherPagesAvecBoutons(array $pages): string
 <head>
     <meta charset="UTF-8">
     <title>Backoffice Pages</title>
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="css/admin.css">
 </head>
 
 <body> <video id="background-video" autoplay loop muted>
@@ -64,8 +64,7 @@ function afficherPagesAvecBoutons(array $pages): string
         <h2>Gestion des pages</h2> <?= afficherPagesAvecBoutons($hierarchy) ?>
     </div>
     <div class="right-panel"> </div> <a href="logout.php">Se déconnecter</a>
-    <script> document.addEventListener('DOMContentLoaded', () => { document.querySelectorAll('.toggle-button').forEach(button => { button.addEventListener('click', () => { const parent = button.parentElement; parent.classList.toggle('expanded'); button.textContent = parent.classList.contains('expanded') ? '▼' : '▶'; }); }); }); </script>
-    <script> document.getElementById('contentForm').addEventListener('submit', function (e) { e.preventDefault(); const formData = new FormData(e.target); fetch('ajouter_contenu.php', { method: 'POST', body: formData }).then(response => { if (!response.ok) { throw new Error("Erreur lors de l'ajout du contenu."); } return response.text(); }).then(data => { alert("Contenu ajouté !"); window.location.reload(); }).catch(error => { console.error("Erreur :", error); alert("Échec de l'ajout du contenu."); }); }); </script>
+    <script src="javascript/script.js"></script>
 </body>
 
 </html>

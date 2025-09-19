@@ -94,7 +94,7 @@ body {
 }
 
 .contenu {
-    background-image: url(image/architechture.jpg);
+    background-image: url(../image/architechture.jpg);
     background-size: cover;
     /* couvre tout le conteneur */
     background-position: top;

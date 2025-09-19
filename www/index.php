@@ -17,7 +17,7 @@ $pageHierarchy = BDD::buildHierarchy($pages);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
-    <link rel="stylesheet" href="acceuil.css">
+    <link rel="stylesheet" href="css/acceuil.css">
     <link rel="shortcut icon" href="image/icon.png">
 </head>
 
@@ -107,27 +107,6 @@ $pageHierarchy = BDD::buildHierarchy($pages);
        </div>
     </footer>
 </body>
-<script>
-   document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.page-link').forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            const pageId = this.dataset.id;
-            fetch('get_contenu.php?page_id=' + pageId)
-                .then(response => response.text())
-                .then(html => {
-                    const presentationDiv = document.querySelector('.presentation-container');
-                    presentationDiv.innerHTML = html; // remplace uniquement le contenu
-                    presentationDiv.scrollIntoView({ behavior: 'smooth' });
-                })
-                .catch(error => {
-                    console.error('Erreur AJAX :', error);
-                });
-        });
-    });
-});
-
-</script>
-<script src="script.js"></script>
+<script src="javascript/script.js"></script>
 
 </html>
