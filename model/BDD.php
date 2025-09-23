@@ -200,6 +200,31 @@ class BDD
         $stmt2->bindValue(":pageId", $pageId, PDO::PARAM_INT);
         $stmt2->execute();
     }
+    public static function getImagesByPageId(int $pageId): array
+    {
+        $db = self::getConnection();
+        $sql = "SELECT id, images FROM contenu WHERE page_id = :page_id AND images IS NOT NULL AND images != ''";
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':page_id', $pageId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $images = [];
+        while ($res = $stmt->fetch()) {
+            $images[] = [
+                'id' => $res['id'],
+                'path' => $res['images']
+            ];
+        }
+        return $images;
+    }
+    public static function updateImage(int $contenuId, string $imagePath): void
+    {
+        $db = self::getConnection();
+        $stmt = $db->prepare("UPDATE contenu SET images = :image WHERE id = :id");
+        $stmt->bindValue(':image', $imagePath, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $contenuId, PDO::PARAM_INT);
+        $stmt->execute();
+    }
 
 
 

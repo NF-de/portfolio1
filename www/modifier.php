@@ -19,6 +19,7 @@ if (!isset($_GET['id'])) {
 
 $pageId = intval($_GET['id']);
 
+// Récupération de la hiérarchie des pages
 $pages = BDD::getPagesHierarchy();
 $hierarchy = BDD::buildHierarchy($pages);
 
@@ -44,15 +45,16 @@ if (!$page) {
 }
 
 $contenus = BDD::getContenuByPageId($pageId);
+$images   = BDD::getImagesByPageId($pageId);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// Sauvegarde titre + paragraphes
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_page'])) {
     $nouveauTitre = $_POST['titre'] ?? '';
     $paragraphes = $_POST['paragraphes'] ?? [];
 
     if ($nouveauTitre === '') {
         $erreur = 'Le titre ne peut pas être vide.';
     } else {
-        // Utilisation des méthodes de BDD (PDO)
         BDD::modifierPage($pageId, $nouveauTitre);
         BDD::modifierContenu($paragraphes);
 
@@ -81,9 +83,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p style="color:red"><?= htmlspecialchars($erreur) ?></p>
     <?php endif; ?>
 
+    <!-- Formulaire pour titre et contenus -->
     <form method="post">
         <label for="titre">Titre :</label><br>
-        <input type="text" id="titre" name="titre" value="<?= htmlspecialchars($page->getTitre()) ?>" required><br><br>
+        <input type="text" id="titre" name="titre" 
+               value="<?= htmlspecialchars($page->getTitre()) ?>" required><br><br>
 
         <?php foreach ($contenus as $index => $contenu): ?>
             <label for="paragraphe_<?= $index ?>">Contenu <?= $index + 1 ?> :</label><br>
@@ -92,8 +96,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                       rows="10" cols="50"><?= htmlspecialchars($contenu->getParagraphe()) ?></textarea><br><br>
         <?php endforeach; ?>
 
-        <button type="submit">Enregistrer</button>
+        <button type="submit" name="save_page">Enregistrer</button>
         <a href="backoffice.php">Annuler</a>
     </form>
+
+    <!-- Section images -->
+    <?php if (!empty($images)): ?>
+        <h2>Images associées</h2>
+        <?php foreach ($images as $image): ?>
+            <div style="margin-bottom:20px">
+                <img src="image/<?= htmlspecialchars($image['path']) ?>" 
+                     alt="Image liée" 
+                     style="max-width:200px; display:block; margin-bottom:10px;">
+
+                <form method="post" enctype="multipart/form-data" 
+                      action="update_image.php?id=<?= $pageId ?>">
+                    <input type="hidden" name="contenu_id" value="<?= (int) $image['id'] ?>">
+                    <input type="file" name="nouvelle_image" accept="image/*" required>
+                    <button type="submit">Changer l'image</button>
+                </form>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
 </body>
 </html>

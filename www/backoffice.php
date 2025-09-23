@@ -24,7 +24,12 @@ function afficherPagesAvecBoutons(array $pages): string
         }
         $html .= '<span class="page-title">' . htmlspecialchars($page->getTitre()) . '</span>';
         $html .= ' <a href="modifier.php?id=' . $page->getId() . '" class="btn-modifier">Modifier</a>';
-        $html .= ' <a href="supprimer.php?id=' . $page->getId() . '" class="btn-supprimer" onclick="return confirm(\'Êtes-vous sûr de vouloir supprimer cette page ?\');">Supprimer</a>';
+        
+        // Affiche le bouton Supprimer seulement si la page a un parent
+        if ($page->getIdParent() !== null) {
+            $html .= ' <a href="supprimer.php?id=' . $page->getId() . '" class="btn-supprimer" onclick="return confirm(\'Êtes-vous sûr de vouloir supprimer cette page ?\');">Supprimer</a>';
+        }
+
         if ($hasChildren) {
             $html .= '<div class="children">';
             $html .= afficherPagesAvecBoutons($page->getChildren());
@@ -33,7 +38,8 @@ function afficherPagesAvecBoutons(array $pages): string
         $html .= '</div>';
     }
     return $html;
-} ?>
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
