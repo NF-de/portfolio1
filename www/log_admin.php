@@ -50,6 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="password" name="password" placeholder="Mot de passe" required>
                 <input type="submit" value="Se connecter">
             </form>
+            <a href="index.php"><button class="neon-btn">Acceuil</button></a>
         </div>
     </div>
 </body>
